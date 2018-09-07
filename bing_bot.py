@@ -11,6 +11,9 @@ import random
 import time
 import sys
 
+file_dir = os.path.dirname(__file__)
+sys.path.append(file_dir)
+
 class BingBot(object):
     """ Automatically login to Bing and search random words
     to accumulate rewards """
