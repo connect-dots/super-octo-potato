@@ -121,11 +121,13 @@ with open('bing_accounts.csv', 'r') as f:
         password = row[1]
 
         sys.stdout.write("Processing User via Desktop" '\n')
+        sys.stdout.write("---------------------------" '\n')
         bing_bot = BingBot(user_id, password, is_mobile=True)
         bing_bot.run()
-        sys.stdout.write('\n' "Desktop Searches Complete" '\n')
+        sys.stdout.write('\n' '\n' "Desktop Searches Complete" '\n' '\n')
 
         sys.stdout.write("Processing user via Mobile" '\n')
+        sys.stdout.write("--------------------------" '\n')
         bing_bot = BingBot(user_id, password)
         bing_bot.run()
-        sys.stdout.write('\n' "Mobile Searches Complete" '\n')
+        sys.stdout.write('\n' '\n' "Mobile Searches Complete" '\n' '\n')
