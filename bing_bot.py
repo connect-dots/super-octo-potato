@@ -100,7 +100,8 @@ class BingBot(object):
             rand_word = self.get_rand_search_term()
             self.driver.get("https://www.bing.com/search?q=" + rand_word)
             count += 1
-        print("Completed" + str(count) + " out of " + str(self.num_searches_to_perform) + "Searches")
+        sys.stdout.write('\n' "Completed" + str(count) + " out of " + str(self.num_searches_to_perform) + "Searches")
+        sys.stdout.flush()
 
     def quit(self):
         """Close the browser."""
@@ -119,12 +120,12 @@ with open('bing_accounts.csv', 'r') as f:
         user_id = row[0]
         password = row[1]
 
-        print("Processing User via Desktop")
+        sys.stdout.write("Processing User via Desktop" '\n')
         bing_bot = BingBot(user_id, password, is_mobile=True)
         bing_bot.run()
-        print("Desktop Searches Complete")
+        sys.stdout.write('\n' "Desktop Searches Complete" '\n')
 
-        print("Processing user via Mobile")
+        sys.stdout.write("Processing user via Mobile" '\n')
         bing_bot = BingBot(user_id, password)
         bing_bot.run()
-        print("Mobile Searches Complete")
+        sys.stdout.write('\n' "Mobile Searches Complete" '\n')
