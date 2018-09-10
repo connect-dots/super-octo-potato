@@ -103,7 +103,7 @@ class BingBot(object):
             rand_word = self.get_rand_search_term()
             self.driver.get("https://www.bing.com/search?q=" + rand_word)
             count += 1
-        sys.stdout.write('\n' "Completed" + str(count) + " Searches")
+        sys.stdout.write('\n' "Completed " + str(count) + " Searches")
         sys.stdout.flush()
 
     def quit(self):
