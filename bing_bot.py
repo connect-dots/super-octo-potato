@@ -10,9 +10,8 @@ import os
 import random
 import time
 import sys
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
-file_dir = os.path.dirname(__file__)
-sys.path.append(file_dir)
 
 class BingBot(object):
     """ Automatically login to Bing and search random words
