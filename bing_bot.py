@@ -10,7 +10,8 @@ import os
 import random
 import time
 import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+
+working = os.path.dirname(os.path.abspath(__file__))
 
 
 class BingBot(object):
@@ -22,7 +23,7 @@ class BingBot(object):
         self.login_url = "https://login.live.com/"
         self.bing_url = "https://www.bing.com/"
 
-        self.word_list = "word_list.txt"
+        self.word_list = os.path.join(working, "word_list.txt")
 
         self.email = email
         self.password = password
@@ -116,20 +117,22 @@ class BingBot(object):
         self.quit()
 
 
-with open('bing_accounts.csv', 'r') as f:
+credentials = os.path.join(working, "bing_accounts.csv")
+
+with open(credentials, 'r') as f:
     reader = csv.reader(f)
     for row in reader:
         user_id = row[0]
         password = row[1]
 
-        sys.stdout.write("Processing User via Desktop" '\n')
+        sys.stdout.write("Performing Desktop Searches" '\n')
         sys.stdout.write("---------------------------" '\n')
         bing_bot = BingBot(user_id, password, is_mobile=True)
         bing_bot.run()
         sys.stdout.write('\n' '\n' "Desktop Searches Complete" '\n' '\n')
 
-        sys.stdout.write("Processing user via Mobile" '\n')
-        sys.stdout.write("--------------------------" '\n')
+        sys.stdout.write("Peforming Mobile Searches" '\n')
+        sys.stdout.write("-------------------------" '\n')
         bing_bot = BingBot(user_id, password)
         bing_bot.run()
         sys.stdout.write('\n' '\n' "Mobile Searches Complete" '\n' '\n')
