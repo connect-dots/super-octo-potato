@@ -13,7 +13,6 @@ import sys
 
 working = os.path.dirname(os.path.abspath(__file__))
 
-
 class BingBot(object):
     """ Automatically login to Bing and search random words
     to accumulate rewards """
@@ -22,6 +21,7 @@ class BingBot(object):
 
         self.login_url = "https://login.live.com/"
         self.bing_url = "https://www.bing.com/"
+        self.dash_url = "https://account.microsoft.com/rewards/"
 
         self.word_list = os.path.join(working, "word_list.txt")
 
@@ -72,6 +72,17 @@ class BingBot(object):
 
         self.driver.find_element_by_id("idSIButton9").click()
 
+    def get_points_start(self):
+        """Get current user points"""
+        self.driver.get(self.dash_url)
+
+        wait = WebDriverWait(self.driver, self.explicit_wait)
+        wait.until(EC.presence_of_all_elements_located((By.ID, "msame_si3")))
+
+        points = self.driver.find_element_by_xpath("/html[@class='ltr rewards-oneuidashboard rewards js picture eventlistener']/body/div[@id='meControlDropdown']/div[@class='msame_Drop_content']/div[@class='msame_Drop_rewards']/div[@id='msame_si3']/a[@class='msame_TxtTrunc']")
+
+        sys.stdout.write(str(points))
+
     def get_rand_search_time(self):
         """Randomize time for searches"""
         return random.uniform(self.min_search_wait, self.max_search_wait)
@@ -103,7 +114,7 @@ class BingBot(object):
             rand_word = self.get_rand_search_term()
             self.driver.get("https://www.bing.com/search?q=" + rand_word)
             count += 1
-        sys.stdout.write('\n' "Completed " + str(count) + " Searches")
+        sys.stdout.write('\n' "Completed" + str(count) + " Searches")
         sys.stdout.flush()
 
     def quit(self):
@@ -125,14 +136,14 @@ with open(credentials, 'r') as f:
         user_id = row[0]
         password = row[1]
 
-        sys.stdout.write("Performing Desktop Searches" '\n')
+        sys.stdout.write("Processing User via Desktop" '\n')
         sys.stdout.write("---------------------------" '\n')
         bing_bot = BingBot(user_id, password, is_mobile=True)
         bing_bot.run()
         sys.stdout.write('\n' '\n' "Desktop Searches Complete" '\n' '\n')
 
-        sys.stdout.write("Peforming Mobile Searches" '\n')
-        sys.stdout.write("-------------------------" '\n')
+        sys.stdout.write("Processing user via Mobile" '\n')
+        sys.stdout.write("--------------------------" '\n')
         bing_bot = BingBot(user_id, password)
         bing_bot.run()
         sys.stdout.write('\n' '\n' "Mobile Searches Complete" '\n' '\n')
