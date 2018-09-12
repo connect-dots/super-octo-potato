@@ -129,10 +129,10 @@ with open(credentials, 'r') as f:
         sys.stdout.write("---------------------------" '\n')
         bing_bot = BingBot(user_id, password, is_mobile=True)
         bing_bot.run()
-        sys.stdout.write('\n' '\n' "Desktop Searches Complete" '\n' '\n')
+        sys.stdout.write('\n' '\n' '\n')
 
         sys.stdout.write("Peforming Mobile Searches" '\n')
         sys.stdout.write("-------------------------" '\n')
         bing_bot = BingBot(user_id, password)
         bing_bot.run()
-        sys.stdout.write('\n' '\n' "Mobile Searches Complete" '\n' '\n')
+      
